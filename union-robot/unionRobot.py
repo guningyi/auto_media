@@ -4,6 +4,7 @@ import win32api
 import win32con
 import time
 import win32clipboard as w
+from win32api import GetSystemMetrics
 
 #http://timgolden.me.uk/pywin32-docs/contents.html
 #you should use the spyxx or spyxx_amd64, and read the chm files.
@@ -44,6 +45,12 @@ def setText(aString):
 
 
 if __name__ == "__main__":
+
+    #获取屏幕分辨率
+    width = GetSystemMetrics(0)
+    height = GetSystemMetrics(1)
+
+
     dlg = win32gui.FindWindow('Internet Explorer_Server', None)
 
     #print(dlg)

@@ -5,7 +5,7 @@ import win32con
 import time
 import win32clipboard as w
 from win32api import GetSystemMetrics
-import urllib2
+#import urllib2
 
 #http://timgolden.me.uk/pywin32-docs/contents.html
 #you should use the spyxx or spyxx_amd64, and read the chm files.
@@ -14,13 +14,13 @@ import urllib2
 #http://blog.csdn.net/lukaishilong/article/details/51900460
 
 
-def proxy_test(ip, port, url):
-    # 设置代理
-    proxy_handler = urllib2.ProxyHandler({'http': 'http://' + ip + ':' + str(port) + '/'})
-    opener = urllib2.build_opener(proxy_handler)
-    urllib2.install_opener(opener)
-    # 访问网页
-    req = urllib2.Request(url)
+# def proxy_test(ip, port, url):
+#     # 设置代理
+#     proxy_handler = urllib2.ProxyHandler({'http': 'http://' + ip + ':' + str(port) + '/'})
+#     opener = urllib2.build_opener(proxy_handler)
+#     urllib2.install_opener(opener)
+#     # 访问网页
+#     req = urllib2.Request(url)
     
 
 def mouse_click(pos):

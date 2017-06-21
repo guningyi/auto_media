@@ -63,6 +63,156 @@ if __name__ == "__main__":
     width = GetSystemMetrics(0)
     height = GetSystemMetrics(1)
 
+    #定义浏览器各控件位置
+
+    #IE浏览器工具按钮
+    ie_toolButton_x = 0
+    ie_toolButton_y = 0
+
+    #Intenet 选项
+    internet_option_x = 0
+    internet_option_y = 0
+
+    #connection
+    connection_x = 0
+    connection_y = 0
+
+    #LAN设置
+    lan_setting_x = 0
+    lan_setting_y = 0
+
+    #ip address文本框
+    ip_address_x = 0
+    ip_address_y = 0
+
+    #port 文本框
+    port_x = 0
+    port_y = 0
+
+    #右键后"全选"的位置
+    all_select_x = 0
+    all_select_y = 0
+
+    #右键后"删除"的位置
+    delete_x = 0
+    delete_y = 0
+
+    #ip address粘贴的位置
+    ip_address_paste_x = 0
+    ip_address_paste_y = 0
+
+    #lan设置确定
+    lan_setting_ok_x = 0
+    lan_setting_ok_y = 0
+
+    #internet设置确定
+    internet_setting_ok_x = 0
+    internet_setting_ok_y = 0
+
+
+    if width == 1920 and height == 1080:
+        ie_toolButton_x = 1900
+        ie_toolButton_y = 37
+
+        # Intenet 选项
+        internet_option_x = 1700
+        internet_option_y = 320
+
+        # connection
+        connection_x = 227
+        connection_y = 65
+
+        # LAN设置
+        lan_setting_x = 400
+        lan_setting_y = 499
+
+        # ip address文本框
+        ip_address_x = 173
+        ip_address_y = 347
+
+
+        # ip右键后"全选"的位置
+        all_select_x = 240
+        all_select_y = 485
+
+        # 右键后"删除"的位置
+        delete_x = 260
+        delete_y = 455
+
+        # ip address粘贴的位置
+        ip_address_paste_x = 260
+        ip_address_paste_y = 430
+
+        # port 文本框
+        port_x = 315
+        port_y = 345
+
+        #port右键后出现的菜单的all select的坐标
+        port_all_select_x = 350
+        port_all_select_y = 475
+
+        #port右键后出现的菜单的delete的坐标
+        port_delete_x = 400
+        port_delete_y = 450
+
+        #port右键后出现的菜单的粘贴的菜单
+        port_paste_x = 380
+        port_paste_y = 430
+
+        #lan设置确定
+        lan_setting_ok_x = 300
+        lan_setting_ok_y = 440
+
+        #internet设置确定
+        internet_setting_ok_x = 250
+        internet_setting_ok_y = 670
+
+
+    else:
+        ie_toolButton_x = 1664
+        ie_toolButton_y = 38
+
+        # Intenet 选项
+        internet_option_x = 1530
+        internet_option_y = 317
+
+        # connection
+        connection_x = 240
+        connection_y = 50
+
+        # LAN设置
+        lan_setting_x = 330
+        lan_setting_y = 415
+
+        # ip address文本框
+        ip_address_x = 185
+        ip_address_y = 280
+
+        # port 文本框
+        port_x = 0
+        port_y = 0
+
+        # 右键后"全选"的位置
+        all_select_x = 195
+        all_select_y = 417
+
+        # 右键后"删除"的位置
+        delete_x = 195
+        delete_y = 395
+
+        # ip address粘贴的位置
+        ip_address_paste_x = 195
+        ip_address_paste_y = 370
+
+        # lan设置确定
+        lan_setting_ok_x = 250
+        lan_setting_ok_y = 350
+
+        # internet设置确定
+        internet_setting_ok_x = 195
+        internet_setting_ok_y = 370
+
+
 
     dlg = win32gui.FindWindow('Internet Explorer_Server', None)
 
@@ -75,15 +225,17 @@ if __name__ == "__main__":
     #dlg3 = win32gui.FindWindowEx(dlg2, 0, "ComboBox", None)
 
     win32gui.ShowWindow(dlg2, win32con.SW_RESTORE)
-    mouse_click((1664, 38))
+    #IE浏览器 工具按钮
+    mouse_click((ie_toolButton_x, ie_toolButton_y))
 
 
     #win32gui.ShowWindow(dlg2, win32con.SW_RESTORE)
-    mouse_click_with_sleep((1530,317))
+    #Intenet 选项
+    mouse_click_with_sleep((internet_option_x,internet_option_y))
 
 
     #点击connection
-    mouse_click_with_sleep((240, 50))
+    mouse_click_with_sleep((connection_x, connection_y))
 
     #dlg3 = win32gui.FindWindow('SysTabControl32', None)
     #win32gui.ShowWindow(dlg3, win32con.SW_RESTORE)
@@ -91,7 +243,7 @@ if __name__ == "__main__":
     #mouse_click_with_sleep(pos)
 
     #点击LAN 设置
-    mouse_click_with_sleep((330, 415))
+    mouse_click_with_sleep((lan_setting_x, lan_setting_y))
 
     #获取Local Area Network (LAN) Settings的句柄
     #注意，如果你要处理某个子控件，一定要找到其准确的父窗口。
@@ -122,38 +274,64 @@ if __name__ == "__main__":
     # win32gui.SendMessage(3152454, win32con.WM_SETTEXT, None, '11.11.11.11')
 
 
-    #移动到文本框右击
-    right_click((185,280))
+    #移动到ip address文本框右击
+    right_click((ip_address_x,ip_address_y))
 
     time.sleep(2)
 
     #全选
-    mouse_click_with_sleep((195, 417))
+    mouse_click_with_sleep((all_select_x, all_select_y))
 
     # 再次移动到文本框右击
-    right_click((185, 280))
+    right_click((ip_address_x, ip_address_y))
 
 
     #点击delete清空内容
-    mouse_click_with_sleep((195, 395))
+    mouse_click_with_sleep((delete_x, delete_y))
 
     time.sleep(2)
-
-
 
     ip = '11.11.11.11'
     # 将'11.11.11.11'写入剪切板
     setText(ip)
 
     #第三次移动到Ip地址框，右击
-    right_click((185, 280))
+    right_click((ip_address_x, ip_address_y))
 
     #将IP地址Paste进去
-    mouse_click_with_sleep((195, 370))
+    mouse_click_with_sleep((ip_address_paste_x, ip_address_paste_y))
 
+
+
+
+    #移动到port文本框右击
+    right_click((port_x,port_y))
+
+    time.sleep(2)
+
+    # 全选
+    mouse_click_with_sleep((port_all_select_x, port_all_select_y))
+
+    # 再次移动到port文本框右击
+    right_click((port_x, port_y))
+
+    # 点击delete清空port内容
+    mouse_click_with_sleep((port_delete_x, port_delete_y))
+
+    time.sleep(2)
+
+    port = '80'
+    # 将'80'写入剪切板
+    setText(port)
+
+    # 第三次移动到port文本框，右击
+    right_click((port_x, port_y))
+
+    # 将port Paste进去
+    mouse_click_with_sleep((port_paste_x, port_paste_y))
 
     #点击确定
-    #mouse_click_with_sleep((250, 350))
+    mouse_click_with_sleep((lan_setting_ok_x, lan_setting_ok_y))
 
     #点击外层的确定
-    #mouse_click_with_sleep((190, 520))
+    mouse_click_with_sleep((internet_setting_ok_x, internet_setting_ok_y))

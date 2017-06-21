@@ -291,7 +291,8 @@ if __name__ == "__main__":
 
     time.sleep(2)
 
-    ip = '11.11.11.11'
+    #ip = '139.224.237.33'
+    ip = 'hello'
     # 将'11.11.11.11'写入剪切板
     setText(ip)
 
@@ -320,7 +321,7 @@ if __name__ == "__main__":
 
     time.sleep(2)
 
-    port = '80'
+    port = '8888'
     # 将'80'写入剪切板
     setText(port)
 
@@ -333,5 +334,9 @@ if __name__ == "__main__":
     #点击确定
     mouse_click_with_sleep((lan_setting_ok_x, lan_setting_ok_y))
 
+    time.sleep(3)
+
     #点击外层的确定
     mouse_click_with_sleep((internet_setting_ok_x, internet_setting_ok_y))
+
+    time.sleep(3)

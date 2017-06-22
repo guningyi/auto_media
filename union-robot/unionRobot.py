@@ -5,7 +5,8 @@ import win32con
 import time
 import win32clipboard as w
 from win32api import GetSystemMetrics
-#import urllib2
+import urllib.request
+import sys
 
 #http://timgolden.me.uk/pywin32-docs/contents.html
 #you should use the spyxx or spyxx_amd64, and read the chm files.
@@ -21,7 +22,15 @@ from win32api import GetSystemMetrics
 #     urllib2.install_opener(opener)
 #     # 访问网页
 #     req = urllib2.Request(url)
-    
+
+def proxy_test(ip, port, url):
+    # 设置代理
+    proxy_handler = urllib.request.ProxyHandler({'http': 'http://' + ip + ':' + str(port) + '/'})
+    opener = urllib.request.build_opener(proxy_handler)
+    urllib.request.install_opener(opener)
+    # 访问网页
+    req = urllib.request.Request(url)
+
 
 def mouse_click(pos):
     win32api.SetCursorPos(pos)
@@ -38,17 +47,24 @@ def right_click(pos):
     win32api.mouse_event(win32con.MOUSEEVENTF_RIGHTDOWN | win32con.MOUSEEVENTF_RIGHTUP ,0,0,0,0)
 
 #读取剪切板
-def getText():
-    w.OpenClipboard()
-    d = w.GetClipboardData(win32con.CF_TEXT)
-    w.CloseClipboard()
-    return d
+# def getText():
+#     w.OpenClipboard()
+#     d = w.GetClipboardData(win32con.CF_TEXT)
+#     w.CloseClipboard()
+#     return d
 
 #写入剪切板
+# def setText(aString):
+#     w.OpenClipboard()
+#     w.EmptyClipboard()
+#     w.SetClipboardData(win32con.CF_TEXT, aString)
+#     w.CloseClipboard()
+
+#写入剪切板，使用SetClipboardText()
 def setText(aString):
     w.OpenClipboard()
     w.EmptyClipboard()
-    w.SetClipboardData(win32con.CF_TEXT, aString)
+    w.SetClipboardText(aString)
     w.CloseClipboard()
 
 
@@ -168,7 +184,7 @@ if __name__ == "__main__":
         internet_setting_ok_y = 670
 
 
-    else:
+    elif width == 1680 and height == 1050 :
         ie_toolButton_x = 1664
         ie_toolButton_y = 38
 
@@ -188,10 +204,6 @@ if __name__ == "__main__":
         ip_address_x = 185
         ip_address_y = 280
 
-        # port 文本框
-        port_x = 0
-        port_y = 0
-
         # 右键后"全选"的位置
         all_select_x = 195
         all_select_y = 417
@@ -204,6 +216,23 @@ if __name__ == "__main__":
         ip_address_paste_x = 195
         ip_address_paste_y = 370
 
+        # port 文本框
+        port_x = 278
+        port_y = 280
+
+        # port右键后出现的菜单的all select的坐标
+        port_all_select_x = 361
+        port_all_select_y = 416
+
+        # port右键后出现的菜单的delete的坐标
+        port_delete_x = 354
+        port_delete_y = 385
+
+        # port右键后出现的菜单的粘贴的菜单
+        port_paste_x = 354
+        port_paste_y = 370
+
+
         # lan设置确定
         lan_setting_ok_x = 250
         lan_setting_ok_y = 350
@@ -211,7 +240,10 @@ if __name__ == "__main__":
         # internet设置确定
         internet_setting_ok_x = 195
         internet_setting_ok_y = 370
-
+    else:
+        print("屏幕尺寸未定义-5秒后将退出程序！")
+        time.sleep(5)
+        sys.exit()
 
 
     dlg = win32gui.FindWindow('Internet Explorer_Server', None)
@@ -291,8 +323,7 @@ if __name__ == "__main__":
 
     time.sleep(2)
 
-    #ip = '139.224.237.33'
-    ip = 'hello'
+    ip = '139.224.237.33'
     # 将'11.11.11.11'写入剪切板
     setText(ip)
 

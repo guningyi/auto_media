@@ -51,6 +51,7 @@ def proxy_test(ip, port, url):
 
 def mouse_click(pos):
     win32api.SetCursorPos(pos)
+    time.sleep(2)
     win32api.mouse_event(win32con.MOUSEEVENTF_LEFTDOWN | win32con.MOUSEEVENTF_LEFTUP,0,0,0,0)
 
 def mouse_click_with_sleep(pos):
@@ -99,7 +100,7 @@ def setText(aString):
 if __name__ == "__main__":
 
     #过滤代理列表，通过连接baidu来测试，并选出可用的代理
-    proxy_list = read_xls('C:\\Users\\eniiguu\\Desktop\\proxy.xls')
+    proxy_list = read_xls('F:\\proxy_all.xls')
     available_proxy_list = []
     for proxy in proxy_list:
         temp = proxy.split(':')
@@ -107,7 +108,7 @@ if __name__ == "__main__":
         port = temp[1]
         # print(ip)
         # print(port)
-        result = proxy_test(ip, port, 'http://www.baidu.com')
+        result = proxy_test(ip, port, 'http://www.gvpld.cn/')
         if result == 200:
             available_proxy_list.append(proxy)
     print(available_proxy_list)
@@ -188,6 +189,7 @@ if __name__ == "__main__":
 
 
     if width == 1920 and height == 1080:
+
         ie_toolButton_x = 1900
         ie_toolButton_y = 37
 
@@ -243,6 +245,26 @@ if __name__ == "__main__":
         #internet设置确定
         internet_setting_ok_x = 250
         internet_setting_ok_y = 670
+
+        # ie浏览器地址输入栏
+        ie_address_edit_x = 500
+        ie_address_edit_y = 41
+
+        # ie浏览器地址输入栏右键后的全选坐标
+        ie_address_all_select_x = 530
+        ie_address_all_select_y = 170
+
+        # ie浏览器地址输入栏右键后的delete的坐标
+        ie_address_delete_x = 530
+        ie_address_delete_y = 150
+
+        # ie浏览器地址输入栏右键后的paste的坐标
+        ie_address_paste_x = 530
+        ie_address_paste_y = 120
+
+        # ie浏览器访问箭头
+        ie_address_access_x = 942
+        ie_address_access_y = 39
 
 
     elif width == 1680 and height == 1050 :
@@ -322,7 +344,6 @@ if __name__ == "__main__":
         ie_address_access_x = 526
         ie_address_access_y = 38
 
-
     else:
         print("屏幕尺寸未定义-5秒后将退出程序！")
         time.sleep(5)
@@ -333,20 +354,20 @@ if __name__ == "__main__":
         proxy_address = temp[0]
         proxy_port = temp[1]
 
-        dlg = win32gui.FindWindow('Internet Explorer_Server', None)
+        #dlg = win32gui.FindWindow('Internet Explorer_Server', None)
 
         #print(dlg)
 
-        dlg2 = win32gui.FindWindow('ToolbarWindow32', None)
+        #dlg2 = win32gui.FindWindow('ToolbarWindow32', None)
 
         #print(dlg2)
 
         #dlg3 = win32gui.FindWindowEx(dlg2, 0, "ComboBox", None)
 
-        win32gui.ShowWindow(dlg2, win32con.SW_RESTORE)
+        #win32gui.ShowWindow(dlg2, win32con.SW_RESTORE)
+
         #IE浏览器 工具按钮
         mouse_click((ie_toolButton_x, ie_toolButton_y))
-
 
         #win32gui.ShowWindow(dlg2, win32con.SW_RESTORE)
         #Intenet 选项

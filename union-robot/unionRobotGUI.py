@@ -20,6 +20,7 @@ class UnionRobot(object):
         self.web_site_list = web_site_list
         self.click_count = StringVar()
         self.available_proxy_list = []
+        self.information = StringVar()
 
     def read_xls_file(self):
         openfilename = askopenfilename(filetypes=[('xls', '*.xls')])
@@ -47,11 +48,12 @@ class UnionRobot(object):
         result = 0
         try:
             # 设置代理
+            print("使用代理:"+ip+':'+port)
             proxy_handler = urllib.request.ProxyHandler({'http': 'http://' + ip + ':' + str(port) + '/'})
             opener = urllib.request.build_opener(proxy_handler)
             urllib.request.install_opener(opener)
             # 访问网页,带10秒超时
-            req = urllib.request.urlopen(url, None, 3)
+            req = urllib.request.urlopen(url, None, 10)
             print(req.getcode())
             result = req.getcode()
         except Exception as e:
@@ -81,7 +83,6 @@ class UnionRobot(object):
         w.CloseClipboard()
 
     def start_click(self):
-        self.click_count.set(10)
         print("start!")
         # 过滤代理列表，通过连接baidu来测试，并选出可用的代理
         for proxy in self.proxy_list:
@@ -94,6 +95,8 @@ class UnionRobot(object):
             if result == 200:
                 self.available_proxy_list.append(proxy)
         print(self.available_proxy_list)
+        #self.information.set('测试结果可用的代理列表\n')
+        #self.information.set(self.available_proxy_list)
 
         counter = 0
 
@@ -457,6 +460,8 @@ class UnionRobot(object):
             for target_url in self.web_site_list:
                 url = target_url[0]
                 max_counter = target_url[1]
+                print(max_counter)
+                print(counter)
                 if max_counter < counter: #假如该站点的点击预设点击次数还没有达到，那么继续。
                     # 修改IE地址，
                     # 移动到IE地址文本框右击
@@ -513,6 +518,7 @@ class UnionRobot(object):
                 else:
                     #将这个站点的信息从缓存中删除
                     self.web_site_list.remove(target_url)
+                    #self.information.set(target_url+'：点击已经完成，一共点击'+counter+'次')
 
 
 if __name__ == "__main__":

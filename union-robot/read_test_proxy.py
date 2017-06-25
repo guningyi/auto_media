@@ -25,14 +25,18 @@ def proxy_test(ip, port, url):
         urllib.request.install_opener(opener)
         # 访问网页,带10秒超时
         req = urllib.request.urlopen(url,None,3)
-        print(req.getcode())
-        result = req.getcode()
+        header = urllib.request.urlopen(url,None,3).info().getheader('Last-Modified')
+        #print(req.getcode())
+        if req.getcode() == 200:
+            print(header.gettitle())
+            if header.gettitle() == '物流快递行业':
+                result =200
     except Exception as e:
         print("time out" + str(e))
     return result
 
 if __name__ == "__main__":
-    proxy_list = read_xls('C:\\Users\\eniiguu\\Desktop\\proxy.xls')
+    proxy_list = read_xls('f:\\proxy.xls')
     available_proxy_list = []
     for proxy in proxy_list:
         temp = proxy.split(':')
@@ -40,7 +44,7 @@ if __name__ == "__main__":
         port = temp[1]
         #print(ip)
         #print(port)
-        result = proxy_test(ip, port, 'http://www.baidu.com')
+        result = proxy_test(ip, port, 'http://www.gvpld.cn/')
         if result == 200:
             available_proxy_list.append(proxy)
     print(available_proxy_list)

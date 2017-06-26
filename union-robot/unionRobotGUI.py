@@ -45,19 +45,28 @@ class UnionRobot(object):
         print(self.web_site_list)
 
     def proxy_test(self, ip, port, url):
-        result = 0
-        try:
-            # 设置代理
-            print("使用代理:"+ip+':'+port)
-            proxy_handler = urllib.request.ProxyHandler({'http': 'http://' + ip + ':' + str(port) + '/'})
-            opener = urllib.request.build_opener(proxy_handler)
-            urllib.request.install_opener(opener)
-            # 访问网页,带10秒超时
-            req = urllib.request.urlopen(url, None, 10)
-            print(req.getcode())
-            result = req.getcode()
-        except Exception as e:
-            print("time out" + str(e))
+        result = ""
+        # 设置代理
+        print("使用代理:"+ip+':'+port)
+        #str = "使用代理:"+ip+':'+port
+        #self.information.set('aa')
+        proxy_handler = urllib.request.ProxyHandler({'http': 'http://' + ip + ':' + str(port) + '/'})
+        opener = urllib.request.build_opener(proxy_handler)
+        urllib.request.install_opener(opener)
+        global max_num
+        max_num = 6
+        for i in range(max_num):
+            try:
+                # 访问网页,带10秒超时
+                req = urllib.request.urlopen(url, None, 3)
+                print(req.geturl())
+                result = req.geturl()
+                break
+            except Exception as e:
+                if i < max_num - 1:
+                    continue
+                else:
+                    print("time out" + str(e))
         return result
 
     def mouse_click(self,pos):
@@ -92,7 +101,7 @@ class UnionRobot(object):
             # print(ip)
             # print(port)
             result = self.proxy_test(ip, port, 'http://www.gvpld.cn/')
-            if result == 200:
+            if result == 'http://www.gvpld.cn/':
                 self.available_proxy_list.append(proxy)
         print(self.available_proxy_list)
         #self.information.set('测试结果可用的代理列表\n')
@@ -110,7 +119,7 @@ class UnionRobot(object):
         ie_toolButton_x = 0
         ie_toolButton_y = 0
 
-        # Intenet 选项
+        # Intenet 选                                                        项
         internet_option_x = 0
         internet_option_y = 0
 

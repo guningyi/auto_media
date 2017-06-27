@@ -12,9 +12,10 @@ import xlrd
 import xlwt
 import datetime
 import random
+from tkinter.scrolledtext import ScrolledText
 
 
-def proxy_test(ip, port, url):
+def proxy_test(ip, port, url, p):
     result = ""
     # 设置代理
     print("使用代理:" + ip + ':' + port)
@@ -25,6 +26,7 @@ def proxy_test(ip, port, url):
     urllib.request.install_opener(opener)
     global max_num
     max_num = 6
+    print(p)
     for i in range(max_num):
         try:
             # 访问网页,带10秒超时
@@ -37,13 +39,14 @@ def proxy_test(ip, port, url):
                 continue
             else:
                 print("time out" + str(e))
-                text.insert(INSERT,"time out" + str(e))
-                text.update()
+                p.insert(INSERT,"time out" + str(e))
+                p.update()
     return result
 
 
-def test_local_proxy_list():
+def test_local_proxy_list(t):
     #从本地代理文件中读入代理
+    print(t)
     proxy_list = []
     available_proxy_list = []
     openfilename = askopenfilename(filetypes=[('xls', '*.xls')])
@@ -60,7 +63,7 @@ def test_local_proxy_list():
         temp = proxy.split(':')
         ip = temp[0]
         port = temp[1]
-        result = proxy_test(ip, port, 'http://www.gvpld.cn/')
+        result = proxy_test(ip, port, 'http://www.gvpld.cn/',t)
         if result == 'http://www.gvpld.cn/':
             available_proxy_list.append(proxy)
     print(available_proxy_list)
@@ -104,12 +107,11 @@ if __name__ == "__main__":
     # left
     frm_L = Frame(width=40, height=20, relief="ridge", borderwidth=1)
 
-    text = Text(frm_L, borderwidth=1, padx=1, pady=1, background="white", height=20, width=35, relief="ridge",
+    text = ScrolledText(frm_L, borderwidth=1, padx=1, pady=1, background="white", height=20, width=35, relief="ridge",
                   font=('Arial', 10)).pack(side=TOP)
 
     Button(frm_L, height=2, width=14, text="测试本地代理列表", font=('宋体', 10),
-           command=test_local_proxy_list).pack(
-        side=LEFT)
+           command=lambda: test_local_proxy_list(text)).pack(side=LEFT)
     # Button(frm_L, height=2, width=10, text="测试代理", font=('宋体', 10),
     #        command=union_root.read_web_site_list_file).pack(side=LEFT)
     Button(frm_L, height=2, width=14, text="测试网络代理列表", font=('宋体', 10),

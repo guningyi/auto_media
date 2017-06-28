@@ -13,6 +13,7 @@ import xlwt
 import datetime
 import random
 from tkinter.scrolledtext import ScrolledText
+import tkinter.font as tkFont
 
 
 def proxy_test(ip, port, url):
@@ -77,11 +78,15 @@ def test_local_proxy_list():
     name = date + '_' + str(num) + '_pass_proxy.xls'
     table = file.add_sheet('proxy')
     if len(available_proxy_list) > 0:
-        text.insert('insert', '恭喜！可用的代理一共有'+ str(len(available_proxy_list)) + '个'+ '\n')
-        text.insert('insert', '可用代理将保存在当前目录下'+ '\n')
+        text.tag_config('blue', foreground='blue')
+        # 使用TAG 'red'来指定文本属性,设为红色字体
+        text.insert('insert', '恭喜！可用的代理一共有'+ str(len(available_proxy_list)) + '个'+ '\n','blue')
+        text.insert('insert', '代理列表将保存在当前目录下xls文件中'+ '\n','blue')
         text.update()
     else:
-        text.insert('insert', '日了狗了！没有可用的代理' + '\n')
+        text.tag_config('red', foreground='red')
+        # 使用TAG 'red'来指定文本属性,设为红色字体
+        text.insert('insert', '日了狗了！没有可用的代理' + '\n','red')
         text.update()
     for index in range(len(available_proxy_list)):
         table.write(index, 0, available_proxy_list[index])
@@ -101,7 +106,7 @@ def spider_internet_proxy():
 
 if __name__ == "__main__":
     root = Tk()
-    root.title("涌涌奥特曼")
+    root.title("代理测试器")
     root.geometry('600x450')  # 是x 不是*
 
     root.resizable(width=False, height=False)  # 宽不可变, 高不可变,默认为True

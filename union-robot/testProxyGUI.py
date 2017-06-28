@@ -15,7 +15,7 @@ import random
 from tkinter.scrolledtext import ScrolledText
 
 
-def proxy_test(ip, port, url, p):
+def proxy_test(ip, port, url):
     result = ""
     # 设置代理
     print("使用代理:" + ip + ':' + port)
@@ -26,7 +26,6 @@ def proxy_test(ip, port, url, p):
     urllib.request.install_opener(opener)
     global max_num
     max_num = 6
-    print(p)
     for i in range(max_num):
         try:
             # 访问网页,带10秒超时
@@ -39,14 +38,13 @@ def proxy_test(ip, port, url, p):
                 continue
             else:
                 print("time out" + str(e))
-                p.insert(INSERT,"time out" + str(e))
-                p.update()
+                text.insert('insert', ip + ':' + port + '  ' + "time out" + str(e) + '\n')
+                text.update()
     return result
 
 
-def test_local_proxy_list(t):
+def test_local_proxy_list():
     #从本地代理文件中读入代理
-    print(t)
     proxy_list = []
     available_proxy_list = []
     openfilename = askopenfilename(filetypes=[('xls', '*.xls')])
@@ -63,7 +61,7 @@ def test_local_proxy_list(t):
         temp = proxy.split(':')
         ip = temp[0]
         port = temp[1]
-        result = proxy_test(ip, port, 'http://www.gvpld.cn/',t)
+        result = proxy_test(ip, port, 'http://www.gvpld.cn/')
         if result == 'http://www.gvpld.cn/':
             available_proxy_list.append(proxy)
     print(available_proxy_list)
@@ -78,8 +76,17 @@ def test_local_proxy_list(t):
     num = len(available_proxy_list)
     name = date + '_' + str(num) + '_pass_proxy.xls'
     table = file.add_sheet('proxy')
+    if len(available_proxy_list) > 0:
+        text.insert('insert', '恭喜！可用的代理一共有'+ str(len(available_proxy_list)) + '个'+ '\n')
+        text.insert('insert', '可用代理将保存在当前目录下'+ '\n')
+        text.update()
+    else:
+        text.insert('insert', '日了狗了！没有可用的代理' + '\n')
+        text.update()
     for index in range(len(available_proxy_list)):
         table.write(index, 0, available_proxy_list[index])
+        text.insert('insert', available_proxy_list[index] + '\n')
+        text.update()
     file.save(name)
 
 
@@ -105,13 +112,14 @@ if __name__ == "__main__":
 
 
     # left
-    frm_L = Frame(width=40, height=20, relief="ridge", borderwidth=1)
+    frm_L = Frame(root, width=40, height=20, relief="ridge", borderwidth=1)
 
-    text = ScrolledText(frm_L, borderwidth=1, padx=1, pady=1, background="white", height=20, width=35, relief="ridge",
-                  font=('Arial', 10)).pack(side=TOP)
-
+    text = ScrolledText(master=frm_L, borderwidth=1, padx=1, pady=1, background="white", height=20, width=35,
+                        relief="ridge",
+                        font=('Arial', 10))
+    text.pack(side=TOP)
     Button(frm_L, height=2, width=14, text="测试本地代理列表", font=('宋体', 10),
-           command=lambda: test_local_proxy_list(text)).pack(side=LEFT)
+           command=test_local_proxy_list).pack(side=LEFT)
     # Button(frm_L, height=2, width=10, text="测试代理", font=('宋体', 10),
     #        command=union_root.read_web_site_list_file).pack(side=LEFT)
     Button(frm_L, height=2, width=14, text="测试网络代理列表", font=('宋体', 10),
@@ -122,7 +130,7 @@ if __name__ == "__main__":
     # right
 
     # frm_R = Frame(frm)
-    frm_R = Frame(width=40, height=20, relief="ridge", borderwidth=1)
+    frm_R = Frame(root, width=40, height=20, relief="ridge", borderwidth=1)
     Label(frm_R, borderwidth=1, padx=1, pady=1, background="white", height=20, width=35, relief="ridge",
           textvariable=spider_internet_proxy_info, font=('Arial', 10)).pack(side=TOP)
     Button(frm_R, height=2, width=10, text="开始点击", font=('宋体', 10), command=spider_internet_proxy).pack(
@@ -131,7 +139,5 @@ if __name__ == "__main__":
     frm_R.pack(side=RIGHT)
 
     # frm.pack()
-
-
 
     root.mainloop()

@@ -22,6 +22,7 @@ class UnionRobot(object):
         self.click_count = StringVar()
         self.available_proxy_list = []
         self.information = StringVar()
+        self.counter = 0
 
     def read_xls_file(self):
         openfilename = askopenfilename(filetypes=[('xls', '*.xls')])
@@ -121,7 +122,7 @@ class UnionRobot(object):
         ie_toolButton_x = 0
         ie_toolButton_y = 0
 
-        # Intenet 选                                                        项
+        # Intenet 选项
         internet_option_x = 0
         internet_option_y = 0
 
@@ -469,11 +470,12 @@ class UnionRobot(object):
             #######################################以上已经完成了代理的设置###################################
 
             for target_url in self.web_site_list:
+                print("for 1")
                 url = target_url[0]
                 max_counter = target_url[1]
                 print(max_counter)
                 print(counter)
-                if max_counter < counter: #假如该站点的点击预设点击次数还没有达到，那么继续。
+                if counter < max_counter : #假如该站点的点击预设点击次数还没有达到，那么继续。
                     # 修改IE地址，
                     # 移动到IE地址文本框右击
                     self.right_click((ie_address_edit_x, ie_address_edit_y))

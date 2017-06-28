@@ -14,6 +14,7 @@ import datetime
 import random
 from tkinter.scrolledtext import ScrolledText
 import tkinter.font as tkFont
+import threading
 
 
 def proxy_test(ip, port, url):
@@ -43,6 +44,11 @@ def proxy_test(ip, port, url):
                 text.update()
     return result
 
+def wrap_test_local_proxy_list():
+    t = threading.Thread(target=test_local_proxy_list)
+    t.setDaemon(True)
+    t.start()
+    t.join()
 
 def test_local_proxy_list():
     #从本地代理文件中读入代理

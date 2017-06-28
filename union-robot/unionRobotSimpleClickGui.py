@@ -95,19 +95,20 @@ class UnionRobot(object):
     def start_click(self):
         print("start!")
         # 过滤代理列表，通过连接baidu来测试，并选出可用的代理
-        for proxy in self.proxy_list:
-            temp = proxy.split(':')
-            ip = temp[0]
-            port = temp[1]
-            # print(ip)
-            # print(port)
-            result = self.proxy_test(ip, port, 'http://www.gvpld.cn/')
-            if result == 'http://www.gvpld.cn/':
-                self.available_proxy_list.append(proxy)
-        print(self.available_proxy_list)
+        # for proxy in self.proxy_list:
+        #     temp = proxy.split(':')
+        #     ip = temp[0]
+        #     port = temp[1]
+        #     # print(ip)
+        #     # print(port)
+        #     result = self.proxy_test(ip, port, 'http://www.gvpld.cn/')
+        #     if result == 'http://www.gvpld.cn/':
+        #         self.available_proxy_list.append(proxy)
+        # print(self.available_proxy_list)
         #self.information.set('测试结果可用的代理列表\n')
         #self.information.set(self.available_proxy_list)
 
+        self.available_proxy_list = self.proxy_list
         counter = 0
 
         # 获取屏幕分辨率

@@ -536,25 +536,25 @@ class UnionRobot(object):
 
 if __name__ == "__main__":
     root = Tk()
-    root.title("涌涌奥特曼")
+    root.title("大智手 v1.0")
     root.geometry('600x450')  # 是x 不是*
 
-    root.resizable(width=True, height=True)  # 宽不可变, 高可变,默认为True
+    root.resizable(width=False, height=False)  # 宽不可变, 高可变,默认为True
     union_root = UnionRobot()
 
     # left
-    frm_L = Frame(width=40, height=20, relief="ridge", borderwidth=1)
+    frm_L = Frame(width=40, height=20, relief="ridge", borderwidth=0)
 
-    label = Label(frm_L, borderwidth=1, padx=1, pady=1, background="white", height=20, width=35, relief="ridge",
-                  textvariable=union_root.click_count, font=('Arial', 10)).pack(side=TOP)
+    l_text = ScrolledText(frm_L, borderwidth=3, padx=1, pady=1, background="white", height=20, width=35, relief="ridge",
+                  font=('Arial', 10)).pack(padx = 10,side=TOP)
 
-    Button(frm_L, height=2, width=10, text="导入代理列表", font=('宋体', 10),
-           command=union_root.read_xls_file).pack(
+    Button(frm_L, height=2, width=10, text="导入代理列表", font=('宋体', 10),bg='green',fg='white',
+           command=union_root.read_xls_file).pack(ipadx =4,ipady = 3, padx =23, pady = 10,
         side=LEFT)
     # Button(frm_L, height=2, width=10, text="测试代理", font=('宋体', 10),
     #        command=union_root.read_web_site_list_file).pack(side=LEFT)
-    Button(frm_L, height=2, width=10, text="导入目标网站列表", font=('宋体', 10),
-           command=union_root.read_web_site_list_file).pack(side=LEFT)
+    Button(frm_L, height=2, width=10, text="导入网站列表", font=('宋体', 10),bg='green',fg='white',
+           command=union_root.read_web_site_list_file).pack(ipadx =4,ipady = 3, padx =23, pady = 10,side=LEFT)
 
 
     frm_L.pack(side=LEFT)
@@ -562,11 +562,11 @@ if __name__ == "__main__":
     # right
 
     # frm_R = Frame(frm)
-    frm_R = Frame(width=40, height=20, relief="ridge", borderwidth=1)
-    text = ScrolledText(frm_R, borderwidth=1, padx=1, pady=1, background="white", height=20, width=35, relief="ridge",
+    frm_R = Frame(width=40, height=20, relief="ridge", borderwidth=0)
+    text = ScrolledText(frm_R, borderwidth=3, padx=1, pady=1, background="white", height=20, width=35, relief="ridge",
            font=('Arial', 10))
-    text.pack(side=TOP)
-    Button(frm_R, height=2, width=10, text="开始点击", font=('宋体', 10), command=union_root.start_click).pack(
+    text.pack(padx = 10,side=TOP)
+    Button(frm_R, height=2, width=10, text="开始点击", font=('宋体', 10), bg='green',fg='white',command=union_root.start_click).pack(ipadx =4,ipady = 3,pady = 10,
         side=BOTTOM)
 
     frm_R.pack(side=RIGHT)

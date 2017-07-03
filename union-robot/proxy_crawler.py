@@ -4,9 +4,21 @@ import threading, os
 import time, datetime
 import operator
 
-'''''
-这里没有使用队列 只是采用多线程分发 对代理量不大的网页还行 但是几百几千性能就很差了
+
+#这里没有使用队列 只是采用多线程分发 对代理量不大的网页还行 但是几百几千性能就很差了
+#高匿代理是做点击的最好选择、
+#要清楚四种代理的区别
 '''
+1 透明代理虽然可以直接“隐藏”你的IP地址，但是还是可以从HTTP_X_FORWARDED_FOR来查到你是谁。
+2 匿名代理比透明代理进步了一点：别人只能知道你用了代理，无法知道你是谁。
+3 如上，与匿名代理相同，如果使用了混淆代理，别人还是能知道你在用代理，但是会得到一个假的IP地址，伪装的更逼真：-）
+4 高匿代理让别人根本无法发现你是在用代理，所以是最好的选择。
+
+http://www.xicidaili.com/
+http://www.gvpld.cn/
+'''
+
+
 
 
 def get_proxy_page(url):
@@ -17,8 +29,7 @@ def get_proxy_page(url):
     try:
         res = urllib.request.urlopen(url)
     except urllib.request.URLError:
-        print
-        'url Error'
+        print('url Error')
         sys.exit(1)
 
     pageinfo = res.read()
@@ -86,7 +97,7 @@ def getreslist(proxy):
 
 def handle():
     timeout = 10
-    test_url = r'http://www.baidu.com'
+    test_url = 'http://www.baidu.com'
     test_str = '030173'
 
     while 1:
@@ -143,11 +154,11 @@ def save(reslist):
 
 @sumtime
 def main():
-    url = r'http://www.free998.net/daili/httpdaili/8949.html'
+    url = 'http://www.free998.net/daili/httpdaili/8949.html'
     global proxylist, reslist
     # 获取所有线程
     proxylist = get_proxy_page(url)
-    print(u'一共获取 %s 个代理' % len(proxylist))
+    print('一共获取 %s 个代理' % len(proxylist))
     # print proxylist
     print('*' * 80)
 

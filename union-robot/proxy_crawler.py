@@ -3,6 +3,7 @@ import urllib.request, sys, re
 import threading, os
 import time, datetime
 import operator
+from bs4 import BeautifulSoup
 
 
 #这里没有使用队列 只是采用多线程分发 对代理量不大的网页还行 但是几百几千性能就很差了
@@ -154,7 +155,7 @@ def save(reslist):
 
 @sumtime
 def main():
-    url = 'http://www.free998.net/daili/httpdaili/8949.html'
+    url = 'http://www.xicidaili.com/nn'
     global proxylist, reslist
     # 获取所有线程
     proxylist = get_proxy_page(url)

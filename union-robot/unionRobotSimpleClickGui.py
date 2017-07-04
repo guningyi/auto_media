@@ -526,6 +526,11 @@ class UnionRobot(object):
                     adv_level_2_y = random.randint(100, 250)
 
                     # 点击第二层广告
+                    self.mouse_click_with_sleep((adv_level_2_x, adv_level_2_y))
+
+                    # 延迟
+                    time.sleep(20)
+
 
                     counter = counter + 1
                 else:

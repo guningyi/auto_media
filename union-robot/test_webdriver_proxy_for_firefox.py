@@ -11,18 +11,15 @@ from selenium.webdriver.common.proxy import ProxyType
 
 if __name__ == '__main__':
 
-    #fireFoxDriver = "C:\\Users\\100plus\AppData\Local\Programs\Python\Python36\geckodriver.exe"
-    #os.environ["webdriver.firefox.driver"] = fireFoxDriver
+    #设置代理 111.155.116.195:8123
+    print('设置Firefox代理:' + '111.155.116.195' + ':' + str(8123))
+    profile = webdriver.FirefoxProfile()
+    profile.set_preference('network.proxy.type', 1)
+    profile.set_preference('network.proxy.http', '111.155.116.195')
+    profile.set_preference('network.proxy.http_port', 8123)  # int
+    profile.update_preferences()
 
-    #设置代理 111.155.116.195 8123
-    proxy = Proxy(
-    {
-            # 'proxyType': ProxyType.MANUAL,  # 用不用都行
-            '111.155.116.195': 8123
-    }
-    )
-
-    browser =  webdriver.Firefox(proxy=proxy)
+    browser =  webdriver.Firefox(firefox_profile=profile)
     browser.get("https://www.so.com/s?src=lm&ls=sm1515585&q=%E7%89%A9%E6%B5%81%E5%BF%AB%E9%80%92&lmsid=92de997c60a756f8&lm_extend=ctype:7")
 
     #使用css来精确定位href

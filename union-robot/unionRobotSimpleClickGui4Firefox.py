@@ -123,13 +123,16 @@ class UnionRobot(object):
 
 
         if width == 1920 and height == 1080:
-            print('22\'')
+            print('你的屏幕分辨率是:'+str(width)+'X'+str(height))
         elif width == 1680 and height == 1050:
-            print('24\'')
+            print('你的屏幕分辨率是:' + str(width) + 'X' + str(height))
         else:
             print("屏幕尺寸未定义-5秒后将退出程序！")
             time.sleep(5)
             sys.exit()
+
+        #设置信息输出框中字体的颜色
+        r_text.tag_config('blue', foreground='blue')
 
         for proxy in self.available_proxy_list:
             if len(self.web_site_list) == 0:
@@ -150,9 +153,10 @@ class UnionRobot(object):
 
             print('设置Firefox代理:'+proxy_address+':'+proxy_port)
             profile = webdriver.FirefoxProfile()
+            # 手动设置代理
             profile.set_preference('network.proxy.type', 1)
             profile.set_preference('network.proxy.http', proxy_address)
-            profile.set_preference('network.proxy.http_port', proxy_port)  # int
+            profile.set_preference('network.proxy.http_port', int(proxy_port))  # int
             profile.update_preferences()
 
             #######################################以上已经完成了代理的设置###################################
@@ -162,8 +166,16 @@ class UnionRobot(object):
                 print("开始遍历网站列表....")
                 url = target_url[0]
                 max_counter = target_url[1]
+
+                #console log 输出
                 print("网址:"+url+' 目标点击次数:'+str(max_counter))
                 print('当前已点击次数:'+str(counter))
+
+                #信息框输出
+                r_text.insert('insert', "网址:"+url+' 目标点击次数:'+str(max_counter)+ '\n', 'blue')
+                r_text.insert('insert', '当前已点击次数:'+str(counter) + '\n', 'blue')
+                r_text.update()
+
                 if counter < max_counter : #假如该站点的点击预设点击次数还没有达到，那么继续。
                     # 打开浏览器
                     browser = webdriver.Firefox(firefox_profile=profile)
@@ -171,6 +183,8 @@ class UnionRobot(object):
                     browser.maximize_window()
                     time.sleep(5)
 
+                    adv_level_1_x = 0
+                    adv_level_1_y = 0
                     # 在指定的广告框范围内，随机生成一组坐标
                     if url == 'http://www.gvpld.cn/': #site
                         adv_level_1_x = random.randint(2, 946)
@@ -240,9 +254,9 @@ if __name__ == "__main__":
 
     # frm_R = Frame(frm)
     frm_R = Frame(width=40, height=20, relief="ridge", borderwidth=0)
-    text = ScrolledText(frm_R, borderwidth=3, padx=1, pady=1, background="white", height=20, width=35, relief="ridge",
+    r_text = ScrolledText(frm_R, borderwidth=3, padx=1, pady=1, background="white", height=20, width=35, relief="ridge",
            font=('Arial', 10))
-    text.pack(padx = 10,side=TOP)
+    r_text.pack(padx = 10,side=TOP)
     Button(frm_R, height=2, width=10, text="开始点击", font=('宋体', 10), bg='green',fg='white',command=union_root.start_click).pack(ipadx =4,ipady = 3,pady = 10,
         side=BOTTOM)
 

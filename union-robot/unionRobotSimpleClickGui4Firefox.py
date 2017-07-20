@@ -218,9 +218,10 @@ class UnionRobot(object):
                         print(input.get_attribute('href'))
                         time.sleep(2)
                         input.click()
+                        counter = counter + 1 #只有点击了二层广告，才能进行计数。
                     time.sleep(3)
 
-                    counter = counter + 1
+
 
                     #关闭浏览器
                     browser.close()

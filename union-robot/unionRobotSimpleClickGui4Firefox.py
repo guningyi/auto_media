@@ -179,7 +179,13 @@ class UnionRobot(object):
                 if counter < max_counter : #假如该站点的点击预设点击次数还没有达到，那么继续。
                     # 打开浏览器
                     browser = webdriver.Firefox(firefox_profile=profile)
-                    browser.get(url)
+                    try:
+                        browser.get(url)
+                    except Exception as e:
+                        print("使用代理:"+ proxy_address+':'+proxy_port +" 访问网站发生异常" + str(e))
+                        r_text.tag_config('red', foreground='red')
+                        r_text.insert('insert', '使用代理:' + proxy_address+':'+proxy_port + " 访问网站发生异常" +'\n', 'red')
+                        r_text.update()
                     browser.maximize_window()
                     time.sleep(5)
 

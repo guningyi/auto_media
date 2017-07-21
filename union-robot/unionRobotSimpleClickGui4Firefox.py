@@ -100,20 +100,6 @@ class UnionRobot(object):
 
     def start_click(self):
         print("start!")
-        # 过滤代理列表，通过连接baidu来测试，并选出可用的代理
-        # for proxy in self.proxy_list:
-        #     temp = proxy.split(':')
-        #     ip = temp[0]
-        #     port = temp[1]
-        #     # print(ip)
-        #     # print(port)
-        #     result = self.proxy_test(ip, port, 'http://www.gvpld.cn/')
-        #     if result == 'http://www.gvpld.cn/':
-        #         self.available_proxy_list.append(proxy)
-        # print(self.available_proxy_list)
-        #self.information.set('测试结果可用的代理列表\n')
-        #self.information.set(self.available_proxy_list)
-
         self.available_proxy_list = self.proxy_list
         counter = 0
 
@@ -137,7 +123,7 @@ class UnionRobot(object):
         for proxy in self.available_proxy_list:
             if len(self.web_site_list) == 0:
                 print('全部网站已经点击完成，退出！')
-                break;
+                break
             temp = proxy.split(':')
             proxy_address = temp[0]
             proxy_port = temp[1]
@@ -205,13 +191,7 @@ class UnionRobot(object):
                     # 等待广告页面展示完成
                     time.sleep(20)
 
-                    # 在指定的广告框范围内，随机生成一组坐标
-                    #adv_level_2_x = random.randint(15, 900)
-                    #adv_level_2_y = random.randint(100, 250)
-
                     # 点击第二层广告
-                    #self.mouse_click_with_sleep((adv_level_2_x, adv_level_2_y))
-
                     inputs = browser.find_elements_by_css_selector("#e_idea_pp li h3 a")
                     print('找到二级广告链接数：'+str(len(inputs)))
                     for input in inputs:
@@ -221,14 +201,13 @@ class UnionRobot(object):
                         counter = counter + 1 #只有点击了二层广告，才能进行计数。
                     time.sleep(3)
 
-
-
                     #关闭浏览器
                     browser.close()
                 else:
                     #将这个站点的信息从缓存中删除
                     self.web_site_list.remove(target_url)
-                    #self.information.set(target_url+'：点击已经完成，一共点击'+counter+'次')
+                    r_text.insert('insert', "点击已经完成，一共点击了:" + str(counter) + "次" +'\n', 'blue')
+                    r_text.update()
 
 
 
